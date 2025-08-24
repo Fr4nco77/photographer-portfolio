@@ -1,22 +1,53 @@
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
-</html>
+---
+import "../styles/global.css";
+import "@fontsource-variable/archivo";
+import "@fontsource-variable/inter";
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const currentLang = Astro.currentLocale;
+const { href, origin } = Astro.url;
+const { title, description } = Astro.props;
+
+const siteTitle = "Photography";
+const pageTitle = [siteTitle, title].filter(Boolean).join(" | ");
+---
+
+<!doctype html>
+<html lang={currentLang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="description" content={description} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="canonical" href={href} />
+    <title>{pageTitle}</title>
+    <script
+      type="application/ld+json"
+      is:inline
+      set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        name: pageTitle,
+        description: description,
+        url: href,
+        publisher: {
+          "@type": "Organization",
+          name: siteTitle,
+          logo: {
+            "@type": "ImageObject",
+            url: `${origin}/favicon.svg`,
+          },
+        },
+      })}
+    />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
