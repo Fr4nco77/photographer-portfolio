@@ -11,10 +11,10 @@ importers:
       '@astrojs/sitemap':
         specifier: ^3.5.1
         version: 3.5.1
-      '@fontsource-variable/archivo':
+      '@fontsource-variable/inter':
         specifier: ^5.2.6
         version: 5.2.6
-      '@fontsource-variable/inter':
+      '@fontsource/archivo-black':
         specifier: ^5.2.6
         version: 5.2.6
       '@tailwindcss/vite':
@@ -238,11 +238,11 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@fontsource-variable/archivo@5.2.6':
-    resolution: {integrity: sha512-6l6yqhuNWkAz5anuWBYJ+TONIx7sWBJK5TKmMD0QsE1E8mkHYmzZAHM4K10EKeRVF6efh9n2XHIiSqDIGUmA4g==}
-
   '@fontsource-variable/inter@5.2.6':
     resolution: {integrity: sha512-jks/bficUPQ9nn7GvXvHtlQIPudW7Wx8CrlZoY8bhxgeobNxlQan8DclUJuYF2loYRrGpfrhCIZZspXYysiVGg==}
+
+  '@fontsource/archivo-black@5.2.6':
+    resolution: {integrity: sha512-Jxq9D0G9k9OfKvx8tQO9WZ6bfNqcN99UoQ2fJivn1JPkY/vVbK/uzHn2BPj347Vh9oNQBUpKaQ9NoDUKLJPQ/w==}
 
   '@img/sharp-darwin-arm64@0.33.5':
     resolution: {integrity: sha512-UT4p+iz/2H4twwAoLCqfA9UH5pI6DggwKEGuaPy7nCVQ8ZsiY5PIcrRvD1DzuY3qYL07NtIQcWnBSY/heikIFQ==}
@@ -1960,9 +1960,9 @@ snapshots:
   '@esbuild/win32-x64@0.25.9':
     optional: true
 
-  '@fontsource-variable/archivo@5.2.6': {}
-
   '@fontsource-variable/inter@5.2.6': {}
+
+  '@fontsource/archivo-black@5.2.6': {}
 
   '@img/sharp-darwin-arm64@0.33.5':
     optionalDependencies:
