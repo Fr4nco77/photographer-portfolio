@@ -1,7 +1,10 @@
 ---
-import Layout from '@layouts/Layout.astro';
+import Layout from "@layouts/Layout.astro";
+import { useTranslations } from "@i18n/utils";
+import { languages } from "@i18n/ui";
+
+const currentLang = Astro.currentLocale as keyof typeof languages;
+const t = useTranslations(currentLang);
 ---
 
-<Layout>
-	
-</Layout>
+<Layout description={t("description.index")} />

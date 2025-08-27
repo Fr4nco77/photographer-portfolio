@@ -1,0 +1,57 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import Link from "./Link.astro";
+import ThemeToggle from "./ThemeToggle.astro";
+import MenuMobil from "./MenuMobil.astro";
+import type { Translate } from "@i18n/utils";
+
+interface Props {
+  lang: string;
+  t: Translate;
+}
+
+const { lang, t } = Astro.props;
+---
+
+<nav class="bg-primary fixed top-0 right-0 left-0 z-10">
+  <div id="nav" class="border-secondary mx-auto max-w-7xl px-6 py-4">
+    <div class="flex items-center justify-between">
+      <a href={getRelativeLocaleUrl(lang, "/")} class="flex items-center gap-2">
+        <div
+          class="bg-secondary flex h-8 w-8 items-center justify-center rounded-full"
+        >
+          <div
+            class="border-primary flex h-5 w-5 items-center justify-center rounded-full border-2"
+          >
+          </div>
+        </div>
+        <span class="font-title text-secondary text-xl tracking-tighter"
+          >PHOTOGRAPHY</span
+        >
+      </a>
+      <ul class="hidden items-center gap-2 sm:flex">
+        <li>
+          <Link to="/about" lang={lang}>{t("nav.about")}</Link>
+        </li>
+        <li>
+          <Link to="/gallery" lang={lang}>{t("nav.gallery")}</Link>
+        </li>
+        <li>
+          <Link to="/contact" lang={lang}>{t("nav.contact")}</Link>
+        </li>
+        <li>
+          <ThemeToggle />
+        </li>
+      </ul>
+      <MenuMobil lang={lang} />
+    </div>
+  </div>
+</nav>
+
+<script>
+  window.addEventListener("scroll", () => {
+    document
+      .getElementById("nav")
+      ?.classList.toggle("border-b-2", window.scrollY > 0);
+  });
+</script>

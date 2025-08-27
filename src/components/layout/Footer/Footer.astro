@@ -1,0 +1,52 @@
+---
+import Mail from "@assets/icons/Mail.astro";
+import Twitter from "@assets/icons/Twitter.astro";
+import Instagram from "@assets/icons/Instagram.astro";
+import Linkedin from "@assets/icons/Linkedin.astro";
+import I18NToggle from "./I18nToggle.astro";
+import Link from "./Link.astro";
+import type { Translate } from "@i18n/utils";
+
+interface Props {
+  lang: string;
+  t: Translate;
+}
+
+const { lang, t } = Astro.props;
+---
+
+<footer>
+  <div class="border-secondary mx-auto max-w-7xl border-t-2 px-6 py-4">
+    <div
+      class="mb-4 flex flex-col items-center justify-between gap-2 sm:flex-row sm:items-end"
+    >
+      <div aria-label="Networks" class="flex gap-2">
+        <Link to="mailto:hello@gmail.com" label="Email">
+          <Mail styles="size-4" />
+        </Link>
+        <Link to="https://www.linkedin.com/in/tu-perfil" label="LinkedIn">
+          <Linkedin styles="size-4" />
+        </Link>
+        <Link to="https://www.instagram.com/tu-perfil" label="Instagram">
+          <Instagram styles="size-4" />
+        </Link>
+        <Link to="https://twitter.com/tu-perfil" label="Twitter">
+          <Twitter styles="size-4" />
+        </Link>
+      </div>
+
+      <div class="flex flex-col gap-2 text-center sm:flex-row sm:gap-4">
+        <span>{t("footer.copy")}</span>
+        <I18NToggle lang={lang} />
+      </div>
+    </div>
+    <div class="bg-secondary flex items-center justify-center rounded-lg p-2">
+      <span
+        aria-hidden="true"
+        class="font-title text-primary text-3xl tracking-tighter sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl"
+      >
+        PHOTOGRAPHY
+      </span>
+    </div>
+  </div>
+</footer>
