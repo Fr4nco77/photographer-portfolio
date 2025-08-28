@@ -1,0 +1,21 @@
+---
+import type { languages } from "@i18n/ui";
+import { useTranslations } from "@i18n/utils";
+import Layout from "@layouts/Layout.astro";
+import Hero from "@components/about/Hero.astro";
+import Bio from "@components/about/Bio.astro";
+import SkillsExperience from "@components/about/Skills&Experience.astro";
+import CTA from "@components/about/CTA.astro";
+import Separator from "@components/Separator.astro";
+
+const currentLocale = Astro.currentLocale as keyof typeof languages;
+const t = useTranslations(currentLocale);
+---
+
+<Layout title={t("pageTitle.about")} description={t("description.about")}>
+  <Hero t={t} />
+  <Bio t={t} />
+  <Separator />
+  <SkillsExperience t={t} />
+  <CTA lang={currentLocale} t={t} />
+</Layout>

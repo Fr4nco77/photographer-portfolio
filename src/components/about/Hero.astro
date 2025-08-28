@@ -1,0 +1,36 @@
+---
+import type { Translate } from "@i18n/utils";
+import { Image } from "astro:assets";
+
+interface Props {
+  t: Translate;
+}
+
+const { t } = Astro.props;
+---
+
+<section
+  class="relative mx-auto flex h-screen max-w-7xl items-center justify-center pt-24 pb-16"
+>
+  <div class="absolute inset-0 overflow-hidden">
+    <Image
+      width={1}
+      height={1}
+      src="/landing/hero.webp"
+      alt="Professional photography studio with lighting equipment"
+      loading="eager"
+      class="size-full object-cover "
+    />
+    <div class="absolute inset-0 bg-black/40"></div>
+  </div>
+  <div class="relative z-8 text-center text-white">
+    <h1
+      class="font-title mb-6 text-6xl tracking-tighter md:text-8xl lg:text-9xl"
+    >
+      Amelia Allen
+    </h1>
+    <p class="mx-auto max-w-2xl text-xl font-medium md:text-2xl">
+      {t("about.subtitle")}
+    </p>
+  </div>
+</section>

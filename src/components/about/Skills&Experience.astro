@@ -1,0 +1,76 @@
+---
+import type { Translate } from "@i18n/utils";
+import Skill from "./Skill.astro";
+import User from "@assets/icons/User.astro";
+import Pic from "@assets/icons/Pic.astro";
+import Camera from "@assets/icons/Camera.astro";
+import Pen from "@assets/icons/Pen.astro";
+
+const experiences = [
+  {
+    year: "2020-2024",
+    title: "Senior Photographer",
+    company: "Creative Studio London",
+  },
+  {
+    year: "2018-2020",
+    title: "Fashion Photographer",
+    company: "Vogue Magazine",
+  },
+  {
+    year: "2016-2018",
+    title: "Freelance Photographer",
+    company: "Various Clients",
+  },
+  {
+    year: "2015",
+    title: "Photography Graduate",
+    company: "London College of Arts",
+  },
+];
+
+interface Props {
+  t: Translate;
+}
+
+const { t } = Astro.props;
+---
+
+<section class="mx-auto max-w-7xl px-6 py-16">
+  <div class="grid grid-cols-1 gap-16 md:grid-cols-2">
+    <div>
+      <h2 class="font-title mb-8 text-4xl md:text-5xl">
+        {t("about.experience")}
+      </h2>
+      <div class="space-y-6">
+        {
+          experiences.map((exp) => (
+            <div class="flex flex-col gap-2 rounded-2xl bg-white p-6 shadow-lg transition-shadow duration-300 hover:shadow-xl">
+              <span class="text-lg font-bold">{exp.year}</span>
+              <h3 class="text-xl font-bold">{exp.title}</h3>
+              <p class="text-secondary/70 text-lg">{exp.company}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <div>
+      <h2 class="font-title mb-8 text-4xl md:text-5xl">{t("about.skills")}</h2>
+      <div class="space-y-4">
+        <Skill name="Portrait Photography">
+          <User styles="size-8" />
+        </Skill>
+        <Skill name="Product Photography">
+          <Pic styles="size-8" />
+        </Skill>
+        <Skill name="Professional Editing">
+          <Pen styles="size-8" />
+        </Skill>
+        <Skill name="Art Direction">
+          <Camera styles="size-8" />
+        </Skill>
+      </div>
+    </div>
+  </div>
+</section>

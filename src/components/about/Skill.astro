@@ -1,0 +1,18 @@
+---
+interface Props {
+  name: String;
+}
+
+const { name } = Astro.props;
+---
+
+<div
+  class="flex items-center gap-4 rounded-2xl bg-white p-6 shadow-lg transition-shadow duration-300 hover:shadow-xl"
+>
+  <div class="flex-shrink-0">
+    <slot />
+  </div>
+  <h3 class="font-extrabold text-lg">
+    {name}
+  </h3>
+</div>

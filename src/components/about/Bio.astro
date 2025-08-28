@@ -1,0 +1,64 @@
+---
+import type { Translate } from "@i18n/utils";
+import { Image } from "astro:assets";
+
+interface Props {
+  t: Translate;
+}
+
+const { t } = Astro.props;
+---
+
+<section class="mx-auto max-w-7xl px-6 py-16 ">
+  <div class="grid grid-cols-1 gap-16 lg:grid-cols-2">
+    <div class="hidden grid-cols-2 gap-4 lg:grid">
+      <div class="col-span-2 overflow-hidden rounded-2xl">
+        <Image
+          width={1}
+          height={1}
+          src="/landing/hero.webp"
+          alt="Amelia Allen - Main Portrait"
+          loading="lazy"
+          class="size-full object-cover"
+        />
+      </div>
+
+      <div class="overflow-hidden rounded-2xl">
+        <Image
+          width={1}
+          height={1}
+          src="/landing/hero.webp"
+          alt="Photography equipment"
+          loading="lazy"
+          class="hidden size-full object-cover lg:block"
+        />
+      </div>
+
+      <div class="overflow-hidden rounded-2xl">
+        <Image
+          width={1}
+          height={1}
+          src="/landing/hero.webp"
+          alt="Behind the scenes"
+          loading="lazy"
+          class="hidden size-full object-cover lg:block"
+        />
+      </div>
+    </div>
+
+    <div>
+      <h2 class="font-title mb-6 text-4xl tracking-tighter md:text-5xl">
+        {t("about.bio.title")}
+      </h2>
+      <p class="mb-4 text-lg leading-relaxed">
+        {t("about.bio.p1")}
+      </p>
+      <p class="mb-4 text-lg leading-relaxed">
+        {t("about.bio.p2")}
+      </p>
+      <p class="text-lg leading-relaxed">
+        {t("about.bio.p3")}
+      </p>
+    </div>
+  </div>
+</section>

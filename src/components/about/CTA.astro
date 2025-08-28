@@ -1,0 +1,32 @@
+---
+import Arrow from "@assets/icons/Arrow.astro";
+import type { Translate } from "@i18n/utils";
+import { getRelativeLocaleUrl } from "astro:i18n";
+
+interface Props {
+  lang: string;
+  t: Translate;
+}
+
+const { lang, t } = Astro.props;
+---
+
+<section
+  class="bg-secondary text-primary mx-auto max-w-7xl px-6 py-16 text-center xl:rounded-2xl mb-16"
+>
+  <h2 class="font-title mb-6 text-4xl tracking-tighter md:text-6xl">
+    {t("about.cta.title")}
+  </h2>
+  <p class="mx-auto mb-8 max-w-2xl text-xl">
+    {t("about.cta.p")}
+  </p>
+  <a
+    href={getRelativeLocaleUrl(lang, "contact")}
+    class="group bg-primary text-secondary inline-flex items-center gap-3 rounded-full px-8 py-4 text-lg font-bold transition-transform duration-300 hover:scale-105"
+  >
+    {t("about.cta.button")}
+    <Arrow
+      styles="size-5 group-hover:translate-x-1 transition-transform duration-300"
+    />
+  </a>
+</section>
