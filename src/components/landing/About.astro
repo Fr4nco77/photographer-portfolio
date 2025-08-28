@@ -1,0 +1,61 @@
+---
+import type { Translate } from "@i18n/utils";
+import { Image } from "astro:assets";
+
+interface Props {
+  t: Translate;
+}
+
+const { t } = Astro.props;
+---
+
+<section class="mx-auto max-w-7xl px-6 py-16">
+  <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+    <div class="hidden overflow-hidden rounded-2xl md:block">
+      <Image
+        width={1}
+        height={2}
+        src="/landing/hero.webp"
+        alt="Person looking at the horizon"
+        loading="lazy"
+        class="size-full object-cover"
+      />
+    </div>
+
+    <div class="grid gap-8 lg:col-span-2 lg:grid-cols-2">
+      <div class="text-xl lg:col-span-2">
+        <h2
+          class="font-title mb-4 text-3xl leading-tight md:text-5xl lg:text-5xl"
+        >
+          {t("sectionAbout.title")}
+        </h2>
+        <p class="mb-2">
+          {t("sectionAbout.p1")}
+        </p>
+        <p>
+          {t("sectionAbout.p2")}
+        </p>
+      </div>
+      <div class="overflow-hidden rounded-2xl md:hidden lg:block">
+        <Image
+          width={1}
+          height={2}
+          src="/landing/hero.webp"
+          alt="Person looking at the horizon"
+          loading="lazy"
+          class="size-full object-cover"
+        />
+      </div>
+      <div class="hidden overflow-hidden rounded-2xl lg:block">
+        <Image
+          width={1}
+          height={2}
+          src="/landing/hero.webp"
+          alt="Person looking at the horizon"
+          loading="lazy"
+          class="size-full object-cover"
+        />
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,62 @@
+---
+import Arrow from "@assets/icons/Arrow.astro";
+import type { Translate } from "@i18n/utils";
+import { Image } from "astro:assets";
+import { getRelativeLocaleUrl } from "astro:i18n";
+
+interface Props {
+  lang: string;
+  t: Translate;
+}
+
+const { lang, t } = Astro.props;
+---
+
+<section class="border-secondary mx-auto max-w-7xl border-b-2 px-6 pt-24 pb-16">
+  <div class="mb-12 flex flex-col md:mb-16">
+    <h1
+      class="font-title text-secondary mb-2 block w-full text-center text-4xl tracking-tight md:mb-4 md:text-start md:text-8xl lg:text-9xl"
+    >
+      {t("hero.title")}
+    </h1>
+    <p
+      class="text-secondary text-center text-xl font-medium md:text-end md:text-2xl lg:text-3xl"
+    >
+      {t("hero.subtitle")}
+    </p>
+  </div>
+
+  <div
+    class="grid items-stretch justify-between gap-8 md:grid-cols-2 lg:grid-cols-3"
+  >
+    <div
+      class="bg-secondary text-primary flex flex-col justify-between rounded-2xl p-5 sm:p-8"
+    >
+      <p class="mb-8 text-xl leading-relaxed">
+        {t("hero.description")}
+      </p>
+      <a
+        href={getRelativeLocaleUrl(lang, "about")}
+        class="font-title text-primary group flex w-fit items-center gap-3 rounded-full text-2xl tracking-tight transition-opacity duration-300 hover:opacity-80"
+      >
+        <span>{t("hero.about")}</span>
+        <div
+          class="bg-primary flex size-6 items-center justify-center rounded-full transition-transform duration-300 group-hover:scale-105"
+        >
+          <Arrow styles="-rotate-45 size-4 text-secondary" />
+        </div>
+      </a>
+    </div>
+
+    <div class="overflow-hidden rounded-2xl lg:col-span-2">
+      <Image
+        width={2}
+        height={1}
+        src="/landing/hero.webp"
+        alt="Person looking at the horizon"
+        loading="eager"
+        class="size-full object-cover"
+      />
+    </div>
+  </div>
+</section>

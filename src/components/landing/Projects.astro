@@ -1,0 +1,84 @@
+---
+import Arrow from "@assets/icons/Arrow.astro";
+import type { Translate } from "@i18n/utils";
+import Image from "astro/components/Image.astro";
+import { getRelativeLocaleUrl } from "astro:i18n";
+
+interface Props {
+  lang: string;
+  t: Translate;
+}
+
+const { lang, t } = Astro.props;
+const projects = [
+  {
+    title: "pic",
+    image: "/landing/hero.webp",
+    to: "/",
+  },
+  {
+    title: "pic",
+    image: "/landing/hero.webp",
+    to: "/",
+  },
+  {
+    title: "pic",
+    image: "/landing/hero.webp",
+    to: "/",
+  },
+  {
+    title: "pic",
+    image: "/landing/hero.webp",
+    to: "/",
+  },
+  {
+    title: "pic",
+    image: "/landing/hero.webp",
+    to: "/",
+  },
+];
+---
+
+<section class="mx-auto max-w-7xl px-6 py-16">
+  <div class="mb-8 flex items-center justify-between">
+    <h2 class="font-title text-3xl tracking-tight md:text-5xl">
+      {t("projects.title")}
+    </h2>
+    <a
+      href={getRelativeLocaleUrl(lang, "gallery")}
+      class="group flex w-fit items-center gap-3 rounded-full text-base font-extrabold tracking-tight transition-opacity duration-300 hover:opacity-80 md:text-xl"
+    >
+      <span class="hidden md:block">{t("projects.show")}</span>
+      <div
+        class="bg-secondary flex size-6 items-center justify-center rounded-full transition-transform duration-300 group-hover:scale-110"
+      >
+        <Arrow styles="md:-rotate-45 size-4 text-primary" />
+      </div>
+    </a>
+  </div>
+  <ul class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+    {
+      projects.map(({ title, image, to }, index) => (
+        <li
+          class:list={[
+            "overflow-hidden rounded-2xl transition-transform duration-300 ease-in-out hover:scale-105",
+            index === 2 && "md:col-span-2 lg:col-span-1 lg:row-span-2",
+            index === 3 && "lg:col-span-2",
+            index === 4 && "lg:col-span-3",
+          ]}
+        >
+          <a href={getRelativeLocaleUrl(lang, to)} aria-label={title}>
+            <Image
+              width={1}
+              height={1}
+              src={image}
+              alt={title}
+              loading="lazy"
+              class="size-full object-cover"
+            />
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</section>

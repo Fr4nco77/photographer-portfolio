@@ -1,0 +1,88 @@
+---
+import type { Translate } from "@i18n/utils";
+import { Image } from "astro:assets";
+import { getRelativeLocaleUrl } from "astro:i18n";
+
+interface Props {
+  lang: string;
+  t: Translate;
+}
+
+const featuredWorks = [
+  {
+    title: "ART DIRECTOR",
+    year: "2021",
+    image: "/landing/hero.webp",
+    to: "/",
+  },
+  {
+    title: "PHOTOGRAPHER",
+    year: "2021",
+    image: "/landing/hero.webp",
+    to: "/",
+  },
+  {
+    title: "VIDEOGRAPHER",
+    year: "2022",
+    image: "/landing/hero.webp",
+    to: "/",
+  },
+];
+const { lang, t } = Astro.props;
+---
+
+<section class="bg-secondary mx-auto max-w-7xl rounded-2xl px-6 py-16">
+  <h2
+    class="font-title text-primary mb-8 text-center text-3xl md:text-start md:text-5xl"
+  >
+    {t("mainProjects.title")}
+  </h2>
+
+  <div class="grid gap-4 md:gap-6">
+    {
+      featuredWorks.map(({ title, to, image, year }, index) => (
+        <a
+          href={getRelativeLocaleUrl(lang, to)}
+          aria-label={`View the project "${title}"`}
+          class="group relative overflow-hidden rounded-2xl"
+        >
+          <div class="relative h-20 md:h-36">
+            <Image
+              width={1}
+              height={1}
+              src={image}
+              alt={`${title} - ${year}`}
+              loading="lazy"
+              class="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+
+            {/* Gradient Overlay */}
+            <div
+              class:list={[
+                "absolute inset-0 group-hover:hidden",
+                index % 2 === 0 &&
+                  "bg-gradient-to-r from-black/50 to-transparent",
+                index % 2 !== 0 &&
+                  "bg-gradient-to-l from-black/50 to-transparent",
+              ]}
+            />
+
+            <div
+              class:list={[
+                "absolute inset-0 flex items-center justify-between p-6",
+                index % 2 !== 0 && "flex-row-reverse",
+              ]}
+            >
+              <h3 class="font-title dark:text-primary text-xl tracking-tight text-white md:text-3xl">
+                {title}
+              </h3>
+              <span class="font-title dark:text-primary hidden text-2xl text-white md:block">
+                {year}
+              </span>
+            </div>
+          </div>
+        </a>
+      ))
+    }
+  </div>
+</section>
