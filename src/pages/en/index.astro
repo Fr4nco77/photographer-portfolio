@@ -6,6 +6,7 @@ import Hero from "@components/landing/Hero.astro";
 import About from "@components/landing/About.astro";
 import MainProjects from "@components/landing/MainProjects.astro";
 import Projects from "@components/landing/Projects.astro";
+import Separator from "@components/Separator.astro";
 
 const currentLang = Astro.currentLocale as keyof typeof languages;
 const t = useTranslations(currentLang);
@@ -14,6 +15,7 @@ const t = useTranslations(currentLang);
 <Layout description={t("description.index")}>
     <main>
         <Hero lang={currentLang} t={t}/>
+        <Separator />
         <About t={t}/>
         <MainProjects lang={currentLang} t={t}/>
         <Projects lang={currentLang} t={t}/>
