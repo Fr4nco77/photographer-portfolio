@@ -1,0 +1,61 @@
+---
+import Mail from "@assets/icons/Mail.astro";
+import MapPin from "@assets/icons/MapPin.astro";
+import Phone from "@assets/icons/Phone.astro";
+import type { Translate } from "@i18n/utils";
+
+interface Props {
+  t: Translate;
+}
+
+const { t } = Astro.props;
+---
+
+<div class="space-y-8">
+  <div class="bg-secondary text-primary rounded-2xl p-4">
+    <h2 class="font-title mb-6 text-3xl tracking-tighter">
+      {t("contact.info.title")}
+    </h2>
+    <p class="text-lg leading-relaxed">
+      {t("contact.info.subtitle")}
+    </p>
+  </div>
+
+  <div class="bg-secondary text-primary space-y-6 rounded-2xl p-4">
+    <div class="flex items-center space-x-4">
+      <div
+        class="bg-primary text-secondary flex h-12 w-12 items-center justify-center rounded-full"
+      >
+        <Mail styles="size-6" />
+      </div>
+      <div>
+        <h3 class="font-semibold">{t("contact.info.email")}</h3>
+        <p>hello@fotografo.com</p>
+      </div>
+    </div>
+
+    <div class="flex items-center space-x-4">
+      <div
+        class="bg-primary text-secondary flex h-12 w-12 items-center justify-center rounded-full"
+      >
+        <Phone styles="size-6" />
+      </div>
+      <div>
+        <h3 class="font-semibold">{t("contact.info.phone")}</h3>
+        <p>+34 123 456 789</p>
+      </div>
+    </div>
+
+    <div class="flex items-center space-x-4">
+      <div
+        class="bg-primary text-secondary flex h-12 w-12 items-center justify-center rounded-full"
+      >
+        <MapPin styles="size-6" />
+      </div>
+      <div>
+        <h3 class="font-semibold">{t("contact.info.ubication")}</h3>
+        <p>London, United Kingdom</p>
+      </div>
+    </div>
+  </div>
+</div>

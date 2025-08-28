@@ -1,0 +1,23 @@
+---
+import Contacts from "@components/contact/Contacts.astro";
+import Form from "@components/contact/Form.astro";
+import Hero from "@components/contact/Hero.astro";
+import Separator from "@components/Separator.astro";
+import type { languages } from "@i18n/ui";
+import { useTranslations } from "@i18n/utils";
+import Layout from "@layouts/Layout.astro";
+
+const currentLang = Astro.currentLocale as keyof typeof languages;
+const t = useTranslations(currentLang);
+---
+
+<Layout title={t("pageTitle.contact")} description={t("description.contact")}>
+  <Hero t={t} />
+  <section class="mx-auto max-w-7xl px-6 py-16 ">
+    <div class="grid grid-cols-1 lg:gap-16 gap-8 md:grid-cols-2">
+        <Contacts t={t} />
+        <Form t={t} />
+    </div>
+  </section>
+  <Separator />
+</Layout>

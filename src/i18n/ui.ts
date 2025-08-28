@@ -41,11 +41,28 @@ export const ui = {
       "Ready to bring your vision to life? I'd love to hear about your project and discuss how we can create something amazing together.",
     "about.cta.button": "GET IN TOUCH",
 
+    "contact.title": "Get in Touch",
+    "contact.subtitle": "Let's talk about your next photography project",
+    "contact.info.title": "Contact Information",
+    "contact.info.subtitle":
+      "I’m here to capture your most special moments. Feel free to reach out for any inquiry or project.",
+    "contact.info.email": "Email",
+    "contact.info.phone": "Phone",
+    "contact.info.ubication": "Location",
+    "contact.form.title": "Send me a message",
+    "contact.form.name.label": "Name",
+    "contact.form.email.label": "Email",
+    "contact.form.message.label": "Message",
+    "contact.form.submit": "Send message",
+
     "description.index":
       "Professional photography portfolio. Explore portraits, creative projects, and unique works that capture emotions and tell stories. Available for collaborations and personalized sessions.",
     "pageTitle.about": "About",
     "description.about":
       "Discover the story behind the lens. Professional photographer specialized in portraits, editorial projects, and artistic photography. Explore my experience, vision, and passion for capturing unique moments.",
+    "pageTitle.contact": "Contact",
+    "description.contact":
+      "Get in touch with a professional photographer specialized in portraits, editorial, and artistic photography. Contact me to discuss your next project, collaborations, or inquiries. Let’s capture your story together.",
   },
   es: {
     "nav.about": "Sobre Mí",
@@ -82,10 +99,27 @@ export const ui = {
       "¿Listo para dar vida a tu visión? Me encantaría conocer tu proyecto y conversar sobre cómo podemos crear algo increíble juntos.",
     "about.cta.button": "CONTÁCTAME",
 
+    "contact.title": "Ponte en contacto",
+    "contact.subtitle": "Hablemos de tu próximo proyecto fotográfico",
+    "contact.info.title": "Información de contacto",
+    "contact.info.subtitle":
+      "Estoy aquí para capturar tus momentos más especiales. No dudes en contactarme para cualquier consulta o proyecto.",
+    "contact.info.email": "Email",
+    "contact.info.phone": "Teléfono",
+    "contact.info.ubication": "Ubicación",
+    "contact.form.title": "Envíame un mensaje",
+    "contact.form.name.label": "Nombre",
+    "contact.form.email.label": "Email",
+    "contact.form.message.label": "Mensaje",
+    "contact.form.submit": "Enviar mensaje",
+
     "description.index":
       "Portafolio de fotografía profesional. Explora retratos, proyectos creativos y trabajos únicos que capturan emociones y cuentan historias. Disponible para colaboraciones y sesiones personalizadas.",
     "pageTitle.about": "Sobre mí",
     "description.about":
       "Conoce la historia detrás de la lente. Fotógrafo profesional especializado en retratos, proyectos editoriales y fotografía artística. Descubre mi experiencia, visión y pasión por capturar momentos únicos.",
+    "pageTitle.contact": "Contacto",
+    "description.contact":
+      "Ponte en contacto con una fotógrafa profesional especializada en retratos, fotografía editorial y artística. Escríbeme para conversar sobre tu próximo proyecto, colaboraciones o consultas. Capturemos tu historia juntos.",
   },
 } as const;

@@ -1,0 +1,142 @@
+---
+import type { Translate } from "@i18n/utils";
+
+interface Props {
+  t: Translate;
+}
+
+const { t } = Astro.props;
+---
+
+<div class="bg-secondary rounded-2xl p-4">
+  <h2 class="font-title text-primary mb-6 text-3xl">
+    {t("contact.form.title")}
+  </h2>
+  <form class="flex flex-col items-center justify-center gap-6">
+    <div class="w-full">
+      <label for="name" class="text-primary mb-2 text-sm font-medium">
+        {t("contact.form.name.label")}
+      </label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        placeholder="John Doe"
+        class="border-secondary w-full rounded-xl border bg-white px-4 py-3 focus:outline-none"
+        required
+      />
+      <span class="mt-1 text-sm text-red-500" id="error-name"></span>
+    </div>
+
+    <div class="w-full">
+      <label for="email" class="text-primary mb-2 text-sm font-medium">
+        {t("contact.form.email.label")}
+      </label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        placeholder="tu@email.com"
+        class="border-secondary w-full rounded-xl border bg-white px-4 py-3 focus:outline-none"
+        required
+      />
+      <span class="mt-1 text-sm text-red-500" id="error-email"></span>
+    </div>
+
+    <div class="w-full">
+      <label for="message" class="text-primary mb-2 text-sm font-medium">
+        {t("contact.form.message.label")}
+      </label>
+      <textarea
+        id="message"
+        name="message"
+        placeholder="..."
+        rows="6"
+        class="border-secondary w-full resize-none rounded-xl border bg-white px-4 py-3 focus:outline-none"
+        required></textarea>
+      <span class="mt-1 text-sm text-red-500" id="error-message"></span>
+    </div>
+
+    <div class="flex justify-end">
+      <button
+        type="submit"
+        class="bg-primary text-secondary w-full cursor-pointer rounded-2xl px-6 py-3 font-semibold transition-all duration-300 hover:scale-105 hover:opacity-80 md:w-auto"
+      >
+        {t("contact.form.submit")}
+      </button>
+    </div>
+  </form>
+</div>
+
+<script>
+  import { actions, isInputError } from "astro:actions";
+  const form = document.querySelector("form");
+  const btn = document.querySelector("button[type=submit]")!;
+  const errorName = document.getElementById("error-name")!;
+  const errorEmail = document.getElementById("error-email")!;
+  const errorMessage = document.getElementById("error-message")!;
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    btn.setAttribute("disabled", "true");
+
+    [errorName, errorEmail, errorMessage].forEach(
+      (el) => (el.textContent = ""),
+    );
+
+    const formData = new FormData(form);
+    const { data, error } = await actions.contactAction(formData);
+
+    btn!.removeAttribute("disabled");
+
+    if (isInputError(error)) {
+      const errors = Object.entries(error.fields);
+      errors.forEach(([key, message]) => {
+        if (key === "name") errorName.textContent = message[0];
+        if (key === "email") errorEmail.textContent = message[0];
+        if (key === "message") errorMessage.textContent = message[0];
+      });
+    } else {
+      showToast({
+        message: data?.message || "Enviado con éxito",
+        icon: "✅",
+        textColor: "text-green-500",
+      });
+      form.reset();
+    }
+  });
+
+  function showToast({
+    message,
+    icon,
+    textColor,
+  }: {
+    message: string;
+    icon: string;
+    textColor: string;
+  }) {
+    const toast = document.createElement("div");
+
+    toast.innerHTML = `
+      <div class="fixed top-4 right-4 lg:top-8 lg:right-8 flex items-center font-semibold gap-2 px-4 py-2 rounded-[10px] border-2 border-[#790063] bg-black/80 p-8 shadow-2xl transform transition-transform duration-500 ease-in-out opacity-0 -translate-y-4 z-20 ${textColor}">
+        <span>${icon}</span>
+        <span>${message}</span>
+      </div>
+    `;
+    document.body.appendChild(toast);
+
+    const toastEl = toast.firstElementChild;
+    if (!toastEl) return;
+
+    requestAnimationFrame(() => {
+      toastEl.classList.remove("opacity-0", "-translate-y-4");
+      toastEl.classList.add("opacity-100", "translate-y-0");
+    });
+
+    setTimeout(() => {
+      toastEl.classList.remove("opacity-100", "translate-y-0");
+      toastEl.classList.add("opacity-0", "-translate-y-4");
+      setTimeout(() => toast.remove(), 300);
+    }, 3000);
+  }
+</script>
