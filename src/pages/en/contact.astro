@@ -1,22 +1,37 @@
 ---
 import Contacts from "@components/contact/Contacts.astro";
 import Form from "@components/contact/Form.astro";
-import Hero from "@components/contact/Hero.astro";
+import HeroSection from "@components/HeroSection.astro";
 import Separator from "@components/Separator.astro";
 import type { languages } from "@i18n/ui";
 import { useTranslations } from "@i18n/utils";
 import Layout from "@layouts/Layout.astro";
+import { Image } from "astro:assets";
 
 const currentLang = Astro.currentLocale as keyof typeof languages;
 const t = useTranslations(currentLang);
 ---
 
 <Layout title={t("pageTitle.contact")} description={t("description.contact")}>
-  <Hero t={t} />
-  <section class="mx-auto max-w-7xl px-6 py-16 ">
-    <div class="grid grid-cols-1 lg:gap-16 gap-8 md:grid-cols-2">
-        <Contacts t={t} />
-        <Form t={t} />
+  <HeroSection
+    t={t}
+    title={t("contact.title")}
+    subtitle={t("contact.subtitle")}
+    height="h-screen"
+  >
+    <Image
+      width={1}
+      height={1}
+      src="/landing/hero.webp"
+      alt="Professional photography studio with lighting equipment"
+      loading="eager"
+      class="size-full object-cover"
+    />
+  </HeroSection>
+  <section class="mx-auto max-w-7xl px-6 py-16">
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:gap-16">
+      <Contacts t={t} />
+      <Form t={t} />
     </div>
   </section>
   <Separator />
