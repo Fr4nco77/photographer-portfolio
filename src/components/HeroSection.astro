@@ -1,18 +1,18 @@
 ---
-import type { Translate } from "@i18n/utils";
-
 interface Props {
-  t: Translate;
   height: string;
   title: string;
   subtitle: string;
 }
 
-const { t, title, subtitle, height } = Astro.props;
+const { title, subtitle, height } = Astro.props;
 ---
 
 <section
-  class:list={["relative mx-auto flex h-screen max-w-7xl items-center justify-center pt-24 pb-16", height]}
+  class:list={[
+    "relative mx-auto flex max-w-7xl items-center justify-center pt-24 pb-16",
+    height,
+  ]}
 >
   <div class="absolute inset-0 overflow-hidden">
     <slot />
