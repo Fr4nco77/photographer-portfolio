@@ -9,43 +9,18 @@ interface Props {
 const { t } = Astro.props;
 ---
 
-<section class="mx-auto max-w-7xl px-6 py-16 ">
-  <div class="grid grid-cols-1 gap-16 lg:grid-cols-2">
-    <div class="hidden grid-cols-2 gap-4 lg:grid">
-      <div class="col-span-2 overflow-hidden rounded-2xl">
-        <Image
-          width={1}
-          height={1}
-          src="/landing/hero.webp"
-          alt="Amelia Allen - Main Portrait"
-          loading="lazy"
-          class="size-full object-cover"
-        />
-      </div>
-
-      <div class="overflow-hidden rounded-2xl">
-        <Image
-          width={1}
-          height={1}
-          src="/landing/hero.webp"
-          alt="Photography equipment"
-          loading="lazy"
-          class="hidden size-full object-cover lg:block"
-        />
-      </div>
-
-      <div class="overflow-hidden rounded-2xl">
-        <Image
-          width={1}
-          height={1}
-          src="/landing/hero.webp"
-          alt="Behind the scenes"
-          loading="lazy"
-          class="hidden size-full object-cover lg:block"
-        />
-      </div>
+<section class="mx-auto max-w-7xl px-6 py-16">
+  <div class="grid gap-16 lg:grid-cols-2">
+    <div class="hidden overflow-hidden rounded-2xl max-h-[600px] lg:block">
+      <Image
+        width={2826}
+        height={4244}
+        src="/amelia/amelia6.jpg"
+        alt="Photography equipment"
+        loading="lazy"
+        class="size-full object-cover object-top"
+      />
     </div>
-
     <div>
       <h2 class="font-title mb-6 text-4xl tracking-tighter md:text-5xl">
         {t("about.bio.title")}
