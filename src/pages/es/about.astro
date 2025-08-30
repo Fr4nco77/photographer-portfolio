@@ -6,28 +6,14 @@ import Bio from "@components/about/Bio.astro";
 import SkillsExperience from "@components/about/Skills&Experience.astro";
 import CTA from "@components/CTA.astro";
 import Separator from "@components/Separator.astro";
-import HeroSection from "@components/HeroSection.astro";
-import { Image } from "astro:assets";
+import Hero from "@components/about/Hero.astro";
 
 const currentLocale = Astro.currentLocale as keyof typeof languages;
 const t = useTranslations(currentLocale);
 ---
 
 <Layout title={t("pageTitle.about")} description={t("description.about")}>
-  <HeroSection
-    title="Amelia Allen"
-    subtitle={t("about.subtitle")}
-    height="h-screen"
-  >
-    <Image
-      width={6720}
-      height={4480}
-      src="/amelia/amelia5.jpg"
-      alt="Professional photography studio with lighting equipment"
-      loading="eager"
-      class="size-full object-cover"
-    />
-  </HeroSection>
+  <Hero t={t} />
   <Bio t={t} />
   <Separator />
   <SkillsExperience t={t} />
