@@ -12,26 +12,26 @@ const featuredWorks = [
   {
     title: "ART DIRECTOR",
     year: "2021",
-    image: "/landing/hero.webp",
+    image: "/landing/main2.jpg",
     to: "/",
   },
   {
     title: "PHOTOGRAPHER",
     year: "2021",
-    image: "/landing/hero.webp",
+    image: "/landing/main1.jpg",
     to: "/",
   },
   {
     title: "VIDEOGRAPHER",
     year: "2022",
-    image: "/landing/hero.webp",
+    image: "/landing/main3.jpg",
     to: "/",
   },
 ];
 const { lang, t } = Astro.props;
 ---
 
-<section class="bg-secondary mx-auto max-w-7xl xl:rounded-2xl px-6 py-16">
+<section class="bg-secondary mx-auto max-w-7xl px-6 py-16 xl:rounded-2xl">
   <h2
     class="font-title text-primary mb-8 text-center text-3xl md:text-start md:text-5xl"
   >
@@ -48,8 +48,8 @@ const { lang, t } = Astro.props;
         >
           <div class="relative h-20 md:h-36">
             <Image
-              width={1}
-              height={1}
+              width={6000}
+              height={4000}
               src={image}
               alt={`${title} - ${year}`}
               loading="lazy"
@@ -73,10 +73,10 @@ const { lang, t } = Astro.props;
                 index % 2 !== 0 && "flex-row-reverse",
               ]}
             >
-              <h3 class="font-title dark:text-primary text-xl tracking-tight text-white md:text-3xl">
+              <h3 class="font-title text-xl tracking-tight text-white transition-opacity duration-300 group-hover:opacity-60 md:text-3xl">
                 {title}
               </h3>
-              <span class="font-title dark:text-primary hidden text-2xl text-white md:block">
+              <span class="font-title hidden text-2xl text-white transition-opacity duration-300 group-hover:opacity-60 md:block">
                 {year}
               </span>
             </div>

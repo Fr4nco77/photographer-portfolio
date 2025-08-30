@@ -17,7 +17,7 @@ export const ui = {
     "hero.description":
       "Amelia Allen is a lifestyle, portrait and documentary photographer from Somerset who now lives and works in London.",
     "hero.about": "ABOUT",
-    "sectionAbout.title": "ABOUT ME",
+    "sectionAbout.title": "In Brief",
     "sectionAbout.p1":
       "Starting her career in fashion photography at the age of 18, it was on the sets of high end brand campaigns and fashion shows that Amelia learnt the technicalities of what has become her signature style.",
     "sectionAbout.p2":
@@ -75,7 +75,7 @@ export const ui = {
     "hero.description":
       "Amelia Allen es una fotógrafa de estilo de vida, retrato y documental originaria de Somerset que ahora vive y trabaja en Londres.",
     "hero.about": "SOBRE MÍ",
-    "sectionAbout.title": "SOBRE MÍ",
+    "sectionAbout.title": "En Resumen",
     "sectionAbout.p1":
       "Comenzando su carrera en la fotografía de moda a los 18 años, fue en los sets de campañas de marcas de alto nivel y desfiles de moda donde Amelia aprendió las técnicas que se han convertido en su estilo distintivo.",
     "sectionAbout.p2":
