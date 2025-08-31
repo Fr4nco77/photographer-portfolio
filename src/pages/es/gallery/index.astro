@@ -1,0 +1,104 @@
+---
+import CTA from "@components/CTA.astro";
+import GalleryCard from "@components/gallery/GalleryCard.astro";
+import Separator from "@components/Separator.astro";
+import type { languages } from "@i18n/ui";
+import { useTranslations } from "@i18n/utils";
+import Layout from "@layouts/Layout.astro";
+
+const currentLang = Astro.currentLocale as keyof typeof languages;
+const t = useTranslations(currentLang);
+
+const projects = [
+  {
+    id: 1,
+    title: "Luz y Sombra",
+    category: "Retratos",
+    imageUrl: "/landing/hero.webp",
+    imageAlt: "Proyecto Luz y Sombra - Retratos dramáticos con juego de luces",
+  },
+  {
+    id: 2,
+    title: "Rostros del Alma",
+    category: "Editorial",
+    imageUrl: "/landing/hero.webp",
+    imageAlt:
+      "Proyecto Rostros del Alma - Fotografía editorial de retratos emotivos",
+  },
+  {
+    id: 3,
+    title: "Paisajes en Silencio",
+    category: "Paisajes",
+    imageUrl: "/landing/hero.webp",
+    imageAlt:
+      "Proyecto Paisajes en Silencio - Fotografía minimalista de paisajes",
+  },
+  {
+    id: 4,
+    title: "Momentos Urbanos",
+    category: "Street",
+    imageUrl: "/landing/hero.webp",
+    imageAlt: "Proyecto Momentos Urbanos - Fotografía callejera y urbana",
+  },
+  {
+    id: 5,
+    title: "Esencias Naturales",
+    category: "Naturaleza",
+    imageUrl: "/landing/hero.webp",
+    imageAlt:
+      "Proyecto Esencias Naturales - Fotografía de naturaleza y detalles botánicos",
+  },
+  {
+    id: 6,
+    title: "Arquitectura Moderna",
+    category: "Arquitectura",
+    imageUrl: "/landing/hero.webp",
+    imageAlt:
+      "Proyecto Arquitectura Moderna - Fotografía arquitectónica contemporánea",
+  },
+  {
+    id: 7,
+    title: "Bodas Íntimas",
+    category: "Bodas",
+    imageUrl: "/landing/hero.webp",
+    imageAlt:
+      "Proyecto Bodas Íntimas - Fotografía de bodas y momentos románticos",
+  },
+  {
+    id: 8,
+    title: "Arte Conceptual",
+    category: "Conceptual",
+    imageUrl: "/landing/hero.webp",
+    imageAlt: "Proyecto Arte Conceptual - Fotografía artística y conceptual",
+  },
+];
+---
+
+<Layout title={t("pageTitle.gallery")} description={t("description.gallery")}>
+  <header class="mx-auto max-w-7xl px-6 pt-24 pb-8 text-center sm:text-start">
+    <h1 class="font-title text-4xl tracking-tighter md:text-7xl lg:text-8xl">
+      {t("gallery.title")}
+    </h1>
+    <p class="text-xl font-medium md:text-2xl">
+      {t("gallery.subtitle")}
+    </p>
+  </header>
+  <Separator />
+  <main class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5">
+      {
+        projects.map((project) => (
+          <GalleryCard
+            title={project.title}
+            category={project.category}
+            image={project.imageUrl}
+            to="/"
+            lang={currentLang}
+          />
+        ))
+      }
+    </div>
+  </main>
+  <CTA lang={currentLang} t={t} />
+  <Separator />
+</Layout>

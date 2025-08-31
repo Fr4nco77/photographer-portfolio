@@ -1,0 +1,91 @@
+---
+import { Image } from "astro:assets";
+import { getRelativeLocaleUrl } from "astro:i18n";
+
+interface Props {
+  image: string;
+  title: string;
+  category: string;
+  to: string;
+  lang: string;
+}
+
+const { image, title, category, to, lang } = Astro.props;
+---
+
+<a
+  class="hover-wrapper group grayscale-50 transition duration-500 ease-in-out hover:grayscale-0"
+  href={getRelativeLocaleUrl(lang, to)}
+  data-title={title}
+  data-category={category}
+>
+  <div class="aspect-square w-full overflow-hidden">
+    <Image
+      src={image}
+      alt={title}
+      width={400}
+      height={500}
+      loading="eager"
+      class="size-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
+    />
+  </div>
+</a>
+
+<!-- Tooltip root global -->
+<div
+  id="tooltip-root"
+  class="pointer-events-none fixed top-0 left-0 z-20 opacity-0 transition-opacity duration-500 ease-in-out"
+>
+  <div
+    class="bg-secondary text-primary flex h-16 w-56 flex-col gap-2 rounded-xs px-3 py-2 text-sm"
+  >
+    <span id="tooltip-title" class="font-bold"></span>
+    <span id="tooltip-category" class="text-xs opacity-90"></span>
+  </div>
+</div>
+
+<script>
+  const tooltip = document.getElementById("tooltip-root")!;
+  const titleEl = document.getElementById("tooltip-title")!;
+  const catEl = document.getElementById("tooltip-category")!;
+
+  let targetX = 0;
+  let targetY = 0;
+  let currentX = 0;
+  let currentY = 0;
+  const speed = 0.15; // Velocidad de seguimiento (lerp)
+
+  document.querySelectorAll(".hover-wrapper").forEach((wrapper: any) => {
+    wrapper.addEventListener("mouseenter", () => {
+      titleEl.textContent = wrapper.dataset.title;
+      catEl.textContent = wrapper.dataset.category;
+      tooltip.style.opacity = "1";
+    });
+
+    wrapper.addEventListener("mousemove", (e: any) => {
+      // Calculamos posición dentro de la ventana
+      const tooltipRect = tooltip.getBoundingClientRect();
+      targetX = Math.min(
+        e.clientX + 15,
+        window.innerWidth - tooltipRect.width - 5,
+      );
+      targetY = Math.min(
+        e.clientY + 15,
+        window.innerHeight - tooltipRect.height - 5,
+      );
+    });
+
+    wrapper.addEventListener("mouseleave", () => {
+      tooltip.style.opacity = "0";
+    });
+  });
+
+  function animate() {
+    currentX += (targetX - currentX) * speed;
+    currentY += (targetY - currentY) * speed;
+    tooltip.style.transform = `translate(${currentX}px, ${currentY}px)`;
+    requestAnimationFrame(animate);
+  }
+
+  requestAnimationFrame(animate);
+</script>

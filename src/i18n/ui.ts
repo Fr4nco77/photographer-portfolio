@@ -55,6 +55,9 @@ export const ui = {
     "contact.form.message.label": "Message",
     "contact.form.submit": "Send message",
 
+    "gallery.title": "Collections",
+    "gallery.subtitle": "Each collection tells a story",
+
     "description.index":
       "Professional photography portfolio. Explore portraits, creative projects, and unique works that capture emotions and tell stories. Available for collaborations and personalized sessions.",
     "pageTitle.about": "About",
@@ -63,6 +66,9 @@ export const ui = {
     "pageTitle.contact": "Contact",
     "description.contact":
       "Get in touch with a professional photographer specialized in portraits, editorial, and artistic photography. Contact me to discuss your next project, collaborations, or inquiries. Let’s capture your story together.",
+    "pageTitle.gallery": "Collections",
+    "description.gallery":
+      "Explore Amelia's photographic collections, a professional photographer specializing in capturing unique moments and genuine emotions. Each collection showcases a distinctive visual style, from intimate portraits to evocative landscapes, offering an artistic and narrative experience through photography. Discover the creativity and sensitivity behind each project in her portfolio gallery.",
   },
   es: {
     "nav.about": "Sobre Mí",
@@ -113,6 +119,9 @@ export const ui = {
     "contact.form.message.label": "Mensaje",
     "contact.form.submit": "Enviar mensaje",
 
+    "gallery.title": "Colecciones",
+    "gallery.subtitle": "Cada colección cuenta una historia",
+
     "description.index":
       "Portafolio de fotografía profesional. Explora retratos, proyectos creativos y trabajos únicos que capturan emociones y cuentan historias. Disponible para colaboraciones y sesiones personalizadas.",
     "pageTitle.about": "Sobre mí",
@@ -121,5 +130,8 @@ export const ui = {
     "pageTitle.contact": "Contacto",
     "description.contact":
       "Ponte en contacto con una fotógrafa profesional especializada en retratos, fotografía editorial y artística. Escríbeme para conversar sobre tu próximo proyecto, colaboraciones o consultas. Capturemos tu historia juntos.",
+    "pageTitle.gallery": "Colecciones",
+    "description.gallery":
+      "Explora las colecciones fotográficas de Amelia, fotógrafa profesional especializada en capturar momentos únicos y emociones auténticas. Cada colección muestra un estilo visual distintivo, desde retratos íntimos hasta paisajes evocadores, ofreciendo una experiencia artística y narrativa a través de la fotografía. Descubre la creatividad y sensibilidad detrás de cada proyecto en su galería de portafolio.",
   },
 } as const;
