@@ -1,0 +1,161 @@
+---
+import type { GetStaticPaths } from "astro";
+import Layout from "@layouts/Layout.astro";
+import Separator from "@components/Separator.astro";
+import { Image } from "astro:assets";
+import Chevron from "@assets/icons/Chevron.astro";
+import Link from "@components/collection/Link.astro";
+import type { languages } from "@i18n/ui";
+import Arrow from "@assets/icons/Arrow.astro";
+import { useTranslations } from "@i18n/utils";
+
+export const getStaticPaths = (() => {
+  return [
+    {
+      params: { collection: "title1" },
+    },
+  ];
+}) satisfies GetStaticPaths;
+
+const images = [
+  "/landing/main1.jpg",
+  "/landing/main2.jpg",
+  "/landing/main3.jpg",
+  "/landing/proyect1.jpg",
+  "/landing/proyect3.jpg",
+  "/landing/proyect4.jpg",
+];
+
+const currentLang = Astro.currentLocale as keyof typeof languages;
+const t = useTranslations(currentLang);
+const title = "Collection1";
+const category = "Lorem ipsum dolor sit.";
+const description =
+  "Deserunt ab tempore animi assumenda, cupiditate deleniti est mollitia eaque consequatur velit corporis ea laudantium temporibus, officiis neque laborum cum distinctio! Incidunt.";
+---
+
+<Layout>
+  <header class="mx-auto max-w-7xl px-6 pt-24 pb-8 text-center sm:text-start">
+    <h1 class="font-title text-4xl tracking-tighter md:text-7xl">
+      {title}
+    </h1>
+    <p class="text-xl font-medium md:text-2xl">
+      {category}
+    </p>
+  </header>
+  <Separator />
+  <main class="mx-auto max-w-7xl px-6 py-16">
+    <div class="space-y-8">
+      <div class="grid gap-8 lg:grid-cols-5">
+        <div class="lg:col-span-4">
+          <Image
+            id="mainImage"
+            src="/landing/main1.jpg"
+            alt=""
+            width={6016}
+            height={4016}
+            loading="eager"
+            class="aspect-auto size-full rounded-sm object-cover"
+          />
+        </div>
+        <div
+          class="relative flex size-full items-center justify-center gap-3 lg:flex-col"
+        >
+          <!-- Prev -->
+          <button
+            id="prevBtn"
+            aria-label="Prev Image"
+            class="bg-secondary/80 text-primary hover:bg-secondary flex items-center justify-center rounded-full p-2"
+          >
+            <span class="block lg:hidden">
+              <Chevron styles="size-5 rotate-180" />
+            </span>
+            <span class="hidden lg:block">
+              <Chevron styles="size-5 -rotate-90" />
+            </span>
+          </button>
+          <!-- Slider -->
+          <div
+            id="slider"
+            class="no-scrollbar flex w-full items-center gap-4 overflow-x-auto scroll-smooth lg:max-h-[600px] lg:flex-col lg:overflow-y-auto"
+          >
+            {
+              images.map((image, index) => (
+                <Image
+                  src={image}
+                  alt=""
+                  width={144}
+                  height={144}
+                  loading={index <= 2 ? "eager" : "lazy"}
+                  class="mini-image aspect-auto w-36 cursor-pointer rounded-sm grayscale-75 transition-all duration-300 ease-in-out hover:scale-105 hover:grayscale-0 lg:w-full"
+                  data-image={image}
+                />
+              ))
+            }
+          </div>
+          <!-- Next -->
+          <button
+            id="nextBtn"
+            aria-label="Next Image"
+            class="bg-secondary/80 text-primary hover:bg-secondary flex items-center justify-center rounded-full p-2"
+          >
+            <span class="block lg:hidden">
+              <Chevron styles="size-5" />
+            </span>
+            <span class="hidden lg:block">
+              <Chevron styles="size-5 rotate-90" />
+            </span>
+          </button>
+        </div>
+      </div>
+      <p class="text-lg md:text-xl">{description}</p>
+    </div>
+  </main>
+  <div class="mx-auto flex max-w-xl items-center justify-between px-6 pb-16">
+    <Link lang={currentLang} to="">
+      <Arrow
+        styles="rotate-180 size-5 group-hover:-translate-x-1 transition-transform duration-300"
+      />
+      {t("collection.prev")}
+    </Link>
+    <Link lang={currentLang} to="">
+      {t("collection.next")}
+      <Arrow
+        styles="size-5 group-hover:translate-x-1 transition-transform duration-300"
+      />
+    </Link>
+  </div>
+  <Separator />
+</Layout>
+
+<script>
+  const slider = document.getElementById("slider")!;
+  const prevBtn = document.getElementById("prevBtn")!;
+  const nextBtn = document.getElementById("nextBtn")!;
+  const mainImage: any = document.getElementById("mainImage")!;
+  const scrollAmount = 150; // distancia a mover en cada click
+
+  function scroll(direction: string) {
+    const isMobile = window.innerWidth < 1024;
+
+    if (isMobile) {
+      slider.scrollBy({
+        left: direction === "next" ? scrollAmount : -scrollAmount,
+        behavior: "smooth",
+      });
+    } else {
+      slider.scrollBy({
+        top: direction === "next" ? scrollAmount : -scrollAmount,
+        behavior: "smooth",
+      });
+    }
+  }
+
+  prevBtn.addEventListener("click", () => scroll("prev"));
+  nextBtn.addEventListener("click", () => scroll("next"));
+  document.querySelectorAll(".mini-image").forEach((el: any) => {
+    el.addEventListener("click", () => {
+      mainImage.src = el.dataset.image;
+    });
+  });
+</script>

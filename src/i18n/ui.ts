@@ -58,6 +58,9 @@ export const ui = {
     "gallery.title": "Collections",
     "gallery.subtitle": "Each collection tells a story",
 
+    "collection.prev": "Prev",
+    "collection.next": "Next",
+
     "description.index":
       "Professional photography portfolio. Explore portraits, creative projects, and unique works that capture emotions and tell stories. Available for collaborations and personalized sessions.",
     "pageTitle.about": "About",
@@ -121,6 +124,9 @@ export const ui = {
 
     "gallery.title": "Colecciones",
     "gallery.subtitle": "Cada colección cuenta una historia",
+
+    "collection.prev": "Anterior",
+    "collection.next": "Siguiente",
 
     "description.index":
       "Portafolio de fotografía profesional. Explora retratos, proyectos creativos y trabajos únicos que capturan emociones y cuentan historias. Disponible para colaboraciones y sesiones personalizadas.",
