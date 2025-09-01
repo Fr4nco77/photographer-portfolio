@@ -22,6 +22,7 @@ const { lang, t, projects } = Astro.props;
     </h2>
     <a
       href={getRelativeLocaleUrl(lang, "gallery")}
+      aria-label={t("projects.show")}
       class="group flex w-fit items-center gap-3 rounded-full text-base font-extrabold tracking-tight transition-opacity duration-300 hover:opacity-80 md:text-xl"
     >
       <span class="hidden md:block">{t("projects.show")}</span>
