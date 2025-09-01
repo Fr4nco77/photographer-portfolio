@@ -26,7 +26,7 @@ const collections = await getCollection("collection");
   <main class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
     <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5">
       {
-        collections.map(({ id, data }) => {
+        collections.map(({ id, data }, index) => {
           const { title, category, images } = data;
           return (
             <GalleryCard
@@ -35,6 +35,7 @@ const collections = await getCollection("collection");
               image={images[0].src}
               alt={images[0].alt[currentLang]}
               to={id}
+              lazy={index > 9}
               lang={currentLang}
             />
           );

@@ -76,7 +76,7 @@ const t = useTranslations(currentLang);
                   alt={alt[currentLang]}
                   width={144}
                   height={144}
-                  loading={index <= 2 ? "eager" : "lazy"}
+                  loading={index <= 3 ? "eager" : "lazy"}
                   class="mini-image aspect-auto w-36 cursor-pointer rounded-sm grayscale-75 transition-all duration-300 ease-in-out hover:scale-105 hover:grayscale-0 lg:w-full"
                   data-image={src}
                 />
@@ -118,34 +118,36 @@ const t = useTranslations(currentLang);
   <Separator />
 </Layout>
 
-<script>
-  const slider = document.getElementById("slider")!;
-  const prevBtn = document.getElementById("prevBtn")!;
-  const nextBtn = document.getElementById("nextBtn")!;
-  const mainImage: any = document.getElementById("mainImage")!;
-  const scrollAmount = 150; // distancia a mover en cada click
+<script is:inline data-astro-rerun>
+  (function () {
+    const slider = document.getElementById("slider");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const mainImage = document.getElementById("mainImage");
+    const scrollAmount = 150; // distancia a mover en cada click
 
-  function scroll(direction: string) {
-    const isMobile = window.innerWidth < 1024;
+    function scroll(direction) {
+      const isMobile = window.innerWidth < 1024;
 
-    if (isMobile) {
-      slider.scrollBy({
-        left: direction === "next" ? scrollAmount : -scrollAmount,
-        behavior: "smooth",
-      });
-    } else {
-      slider.scrollBy({
-        top: direction === "next" ? scrollAmount : -scrollAmount,
-        behavior: "smooth",
-      });
+      if (isMobile) {
+        slider.scrollBy({
+          left: direction === "next" ? scrollAmount : -scrollAmount,
+          behavior: "smooth",
+        });
+      } else {
+        slider.scrollBy({
+          top: direction === "next" ? scrollAmount : -scrollAmount,
+          behavior: "smooth",
+        });
+      }
     }
-  }
 
-  prevBtn.addEventListener("click", () => scroll("prev"));
-  nextBtn.addEventListener("click", () => scroll("next"));
-  document.querySelectorAll(".mini-image").forEach((el: any) => {
-    el.addEventListener("click", () => {
-      mainImage.src = el.dataset.image;
+    prevBtn.addEventListener("click", () => scroll("prev"));
+    nextBtn.addEventListener("click", () => scroll("next"));
+    document.querySelectorAll(".mini-image").forEach((el) => {
+      el.addEventListener("click", () => {
+        mainImage.src = el.dataset.image;
+      });
     });
-  });
+  })();
 </script>

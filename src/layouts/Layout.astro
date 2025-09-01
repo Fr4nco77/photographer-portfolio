@@ -6,6 +6,7 @@ import Nav from "@components/layout/Nav/Nav.astro";
 import Footer from "@components/layout/Footer/Footer.astro";
 import { useTranslations } from "@i18n/utils";
 import type { languages } from "@i18n/ui";
+import { ClientRouter } from "astro:transitions";
 
 interface Props {
   title?: string;
@@ -35,6 +36,7 @@ const pageTitle = [siteTitle, title].filter(Boolean).join(" | ");
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="manifest" href="/site.webmanifest" />
     <title>{pageTitle}</title>
+    <ClientRouter />
     <script
       type="application/ld+json"
       is:inline

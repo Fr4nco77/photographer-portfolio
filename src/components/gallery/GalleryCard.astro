@@ -8,10 +8,11 @@ interface Props {
   image: string;
   alt: string;
   to: string;
+  lazy: boolean;
   lang: string;
 }
 
-const { title, category, image, alt, to, lang } = Astro.props;
+const { title, category, image, alt, to, lazy, lang } = Astro.props;
 ---
 
 <a
@@ -26,7 +27,7 @@ const { title, category, image, alt, to, lang } = Astro.props;
       alt={alt}
       width={400}
       height={500}
-      loading="eager"
+      loading={lazy ? "lazy" : "eager"}
       class="size-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
     />
   </div>
@@ -40,53 +41,155 @@ const { title, category, image, alt, to, lang } = Astro.props;
   <div
     class="bg-secondary text-primary flex max-h-16 w-56 flex-col gap-2 rounded-xs px-3 py-2 text-sm"
   >
-    <span id="tooltip-title" class="font-bold truncate"></span>
+    <span id="tooltip-title" class="truncate font-bold"></span>
     <span id="tooltip-category" class="text-xs opacity-90"></span>
   </div>
 </div>
 
-<script>
-  const tooltip = document.getElementById("tooltip-root")!;
-  const titleEl = document.getElementById("tooltip-title")!;
-  const catEl = document.getElementById("tooltip-category")!;
+<script is:inline>
+  (function () {
+    // Si ya existe el manager lo reaprovechamos y solo re-ejecutamos el setup
+    if (
+      window.__tooltipManager &&
+      typeof window.__tooltipManager.setupTooltips === "function"
+    ) {
+      window.__tooltipManager.setupTooltips();
+      return;
+    }
 
-  let targetX = 0;
-  let targetY = 0;
-  let currentX = 0;
-  let currentY = 0;
-  const speed = 0.15; // Velocidad de seguimiento (lerp)
+    // Creamos el estado global (se hace UNA sola vez)
+    const state = {
+      rafId: null,
+      running: false,
+      boundWrappers: new WeakSet(),
+      targetX: 0,
+      targetY: 0,
+      currentX: 0,
+      currentY: 0,
+      speed: 0.15,
+      tooltipEl: null,
+      titleEl: null,
+      catEl: null,
+      observer: null,
+    };
 
-  document.querySelectorAll(".hover-wrapper").forEach((wrapper: any) => {
-    wrapper.addEventListener("mouseenter", () => {
-      titleEl.textContent = wrapper.dataset.title;
-      catEl.textContent = wrapper.dataset.category;
-      tooltip.style.opacity = "1";
-    });
+    // Refresh de referencias actuales al DOM (útil cuando el root se reemplaza)
+    function refreshTooltipEls() {
+      state.tooltipEl = document.getElementById("tooltip-root");
+      state.titleEl = document.getElementById("tooltip-title");
+      state.catEl = document.getElementById("tooltip-category");
+    }
 
-    wrapper.addEventListener("mousemove", (e: any) => {
-      // Calculamos posición dentro de la ventana
-      const tooltipRect = tooltip.getBoundingClientRect();
-      targetX = Math.min(
-        e.clientX + 15,
-        window.innerWidth - tooltipRect.width - 5,
-      );
-      targetY = Math.min(
-        e.clientY + 15,
-        window.innerHeight - tooltipRect.height - 5,
-      );
-    });
+    // Enlaza listeners a un wrapper sólo si no fue enlazado antes
+    function bindWrapper(wrapper) {
+      if (state.boundWrappers.has(wrapper)) return;
+      const onEnter = () => {
+        refreshTooltipEls();
+        if (!state.tooltipEl || !state.titleEl || !state.catEl) return;
+        state.titleEl.textContent = wrapper.dataset.title || "";
+        state.catEl.textContent = wrapper.dataset.category || "";
+        state.tooltipEl.style.opacity = "1";
+      };
+      const onMove = (e) => {
+        refreshTooltipEls();
+        if (!state.tooltipEl) return;
+        const tooltipRect = state.tooltipEl.getBoundingClientRect();
+        state.targetX = Math.min(
+          e.clientX + 15,
+          window.innerWidth - tooltipRect.width - 5,
+        );
+        state.targetY = Math.min(
+          e.clientY + 15,
+          window.innerHeight - tooltipRect.height - 5,
+        );
+      };
+      const onLeave = () => {
+        refreshTooltipEls();
+        if (!state.tooltipEl) return;
+        state.tooltipEl.style.opacity = "0";
+      };
 
-    wrapper.addEventListener("mouseleave", () => {
-      tooltip.style.opacity = "0";
-    });
-  });
+      wrapper.addEventListener("mouseenter", onEnter);
+      wrapper.addEventListener("mousemove", onMove);
+      wrapper.addEventListener("mouseleave", onLeave);
 
-  function animate() {
-    currentX += (targetX - currentX) * speed;
-    currentY += (targetY - currentY) * speed;
-    tooltip.style.transform = `translate(${currentX}px, ${currentY}px)`;
-    requestAnimationFrame(animate);
-  }
+      state.boundWrappers.add(wrapper);
+    }
 
-  requestAnimationFrame(animate);
+    // Encuentra todos los .hover-wrapper y los enlaza (idempotente)
+    function setupTooltips() {
+      refreshTooltipEls();
+      const wrappers = document.querySelectorAll(".hover-wrapper");
+      wrappers.forEach(bindWrapper);
+      // si el tooltip aparece dinámicamente debajo del layout, el MutationObserver lo detectará;
+      // igual corremos el setup ahora para enganchar lo que haya.
+    }
+
+    // Animación suave — se arranca solo una vez
+    function startAnimationIfNeeded() {
+      if (state.running) return;
+      state.running = true;
+
+      function animate() {
+        state.currentX += (state.targetX - state.currentX) * state.speed;
+        state.currentY += (state.targetY - state.currentY) * state.speed;
+        if (state.tooltipEl) {
+          // mejorar performance: solo actualizar transform
+          state.tooltipEl.style.transform = `translate(${state.currentX}px, ${state.currentY}px)`;
+        }
+        state.rafId = requestAnimationFrame(animate);
+      }
+
+      animate();
+    }
+
+    // Observador para detectar nodos añadidos (útil si tu tooltip o wrappers se insertan dinámicamente)
+    function ensureMutationObserver() {
+      if (state.observer) return;
+      state.observer = new MutationObserver((mutations) => {
+        for (const m of mutations) {
+          if (m.addedNodes.length) {
+            for (const node of m.addedNodes) {
+              if (node.nodeType === 1) {
+                if (node.matches && node.matches(".hover-wrapper")) {
+                  setupTooltips();
+                  return;
+                }
+                if (
+                  node.id === "tooltip-root" ||
+                  (node.querySelector &&
+                    (node.querySelector(".hover-wrapper") ||
+                      node.querySelector("#tooltip-root")))
+                ) {
+                  setupTooltips();
+                  return;
+                }
+              }
+            }
+          }
+        }
+      });
+      state.observer.observe(document.body, { childList: true, subtree: true });
+    }
+
+    // Guardamos las utilidades en window para reusarlas en futuras ejecuciones del script
+    window.__tooltipManager = {
+      ...state,
+      refreshTooltipEls,
+      bindWrapper,
+      setupTooltips,
+      startAnimationIfNeeded,
+      ensureMutationObserver,
+    };
+
+    // Inicialización: primer setup + arrancar animación + escuchar navigations del ClientRouter
+    setupTooltips();
+    startAnimationIfNeeded();
+    ensureMutationObserver();
+
+    // Re-enganchar automáticamente cada vez que ClientRouter carga nueva página
+    document.addEventListener("astro:page-load", setupTooltips);
+    // Por si acaso en cargas iniciales o navegaciones "no astro" también
+    document.addEventListener("DOMContentLoaded", setupTooltips);
+  })();
 </script>
