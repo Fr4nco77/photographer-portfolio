@@ -3,26 +3,27 @@ import { Image } from "astro:assets";
 import { getRelativeLocaleUrl } from "astro:i18n";
 
 interface Props {
-  image: string;
   title: string;
   category: string;
+  image: string;
+  alt: string;
   to: string;
   lang: string;
 }
 
-const { image, title, category, to, lang } = Astro.props;
+const { title, category, image, alt, to, lang } = Astro.props;
 ---
 
 <a
   class="hover-wrapper group grayscale-50 transition duration-500 ease-in-out hover:grayscale-0"
-  href={getRelativeLocaleUrl(lang, to)}
+  href={getRelativeLocaleUrl(lang, `gallery/${to}`)}
   data-title={title}
   data-category={category}
 >
   <div class="aspect-square w-full overflow-hidden">
     <Image
       src={image}
-      alt={title}
+      alt={alt}
       width={400}
       height={500}
       loading="eager"
@@ -37,9 +38,9 @@ const { image, title, category, to, lang } = Astro.props;
   class="pointer-events-none fixed top-0 left-0 z-20 opacity-0 transition-opacity duration-500 ease-in-out"
 >
   <div
-    class="bg-secondary text-primary flex h-16 w-56 flex-col gap-2 rounded-xs px-3 py-2 text-sm"
+    class="bg-secondary text-primary flex max-h-16 w-56 flex-col gap-2 rounded-xs px-3 py-2 text-sm"
   >
-    <span id="tooltip-title" class="font-bold"></span>
+    <span id="tooltip-title" class="font-bold truncate"></span>
     <span id="tooltip-category" class="text-xs opacity-90"></span>
   </div>
 </div>

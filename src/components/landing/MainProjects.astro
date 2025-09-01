@@ -1,34 +1,17 @@
 ---
+import { languages } from "@i18n/ui";
 import type { Translate } from "@i18n/utils";
 import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
 import { getRelativeLocaleUrl } from "astro:i18n";
 
 interface Props {
-  lang: string;
+  lang: keyof typeof languages;
   t: Translate;
+  featuredWorks: CollectionEntry<"collection">[];
 }
 
-const featuredWorks = [
-  {
-    title: "ART DIRECTOR",
-    year: "2021",
-    image: "/landing/main2.jpg",
-    to: "/",
-  },
-  {
-    title: "PHOTOGRAPHER",
-    year: "2021",
-    image: "/landing/main1.jpg",
-    to: "/",
-  },
-  {
-    title: "VIDEOGRAPHER",
-    year: "2022",
-    image: "/landing/main3.jpg",
-    to: "/",
-  },
-];
-const { lang, t } = Astro.props;
+const { lang, t, featuredWorks } = Astro.props;
 ---
 
 <section class="bg-secondary mx-auto max-w-7xl px-6 py-16 xl:rounded-2xl">
@@ -40,49 +23,52 @@ const { lang, t } = Astro.props;
 
   <div class="grid gap-4 md:gap-6">
     {
-      featuredWorks.map(({ title, to, image, year }, index) => (
-        <a
-          href={getRelativeLocaleUrl(lang, to)}
-          aria-label={`View the project "${title}"`}
-          class="group relative overflow-hidden rounded-2xl"
-        >
-          <div class="relative h-20 md:h-36">
-            <Image
-              width={6000}
-              height={4000}
-              src={image}
-              alt={`${title} - ${year}`}
-              loading="lazy"
-              class="size-full object-cover transition-transform duration-500 group-hover:scale-105"
-            />
+      featuredWorks.map(({ id, data }, index) => {
+        const { title, category, images } = data;
+        return (
+          <a
+            href={getRelativeLocaleUrl(lang, `gallery/${id}`)}
+            aria-label={`View the collection "${title[lang]}"`}
+            class="group relative overflow-hidden rounded-2xl"
+          >
+            <div class="relative h-20 md:h-36">
+              <Image
+                width={4899}
+                height={3265}
+                src={images[0].src}
+                alt={images[0].alt[lang]}
+                loading="lazy"
+                class="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
 
-            {/* Gradient Overlay */}
-            <div
-              class:list={[
-                "absolute inset-0 group-hover:hidden",
-                index % 2 === 0 &&
-                  "bg-gradient-to-r from-black/50 to-transparent",
-                index % 2 !== 0 &&
-                  "bg-gradient-to-l from-black/50 to-transparent",
-              ]}
-            />
+              {/* Gradient Overlay */}
+              <div
+                class:list={[
+                  "absolute inset-0 group-hover:hidden",
+                  index % 2 === 0 &&
+                    "bg-gradient-to-r from-black/50 to-transparent",
+                  index % 2 !== 0 &&
+                    "bg-gradient-to-l from-black/50 to-transparent",
+                ]}
+              />
 
-            <div
-              class:list={[
-                "absolute inset-0 flex items-center justify-between p-6",
-                index % 2 !== 0 && "flex-row-reverse",
-              ]}
-            >
-              <h3 class="font-title text-xl tracking-tight text-white transition-opacity duration-300 group-hover:opacity-60 md:text-3xl">
-                {title}
-              </h3>
-              <span class="font-title hidden text-2xl text-white transition-opacity duration-300 group-hover:opacity-60 md:block">
-                {year}
-              </span>
+              <div
+                class:list={[
+                  "absolute inset-0 flex items-center justify-between p-6",
+                  index % 2 !== 0 && "flex-row-reverse",
+                ]}
+              >
+                <h3 class="font-title text-xl tracking-tight text-white transition-opacity duration-300 group-hover:opacity-60 md:text-3xl">
+                  {title[lang]}
+                </h3>
+                <span class="font-title hidden text-2xl text-white transition-opacity duration-300 group-hover:opacity-60 md:block">
+                  {category[lang]}
+                </span>
+              </div>
             </div>
-          </div>
-        </a>
-      ))
+          </a>
+        );
+      })
     }
   </div>
 </section>

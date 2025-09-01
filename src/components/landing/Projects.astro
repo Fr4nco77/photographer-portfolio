@@ -1,37 +1,18 @@
 ---
 import Arrow from "@assets/icons/Arrow.astro";
+import type { languages } from "@i18n/ui";
 import type { Translate } from "@i18n/utils";
 import Image from "astro/components/Image.astro";
+import type { CollectionEntry } from "astro:content";
 import { getRelativeLocaleUrl } from "astro:i18n";
 
 interface Props {
-  lang: string;
+  lang: keyof typeof languages;
   t: Translate;
+  projects: CollectionEntry<"collection">[];
 }
 
-const { lang, t } = Astro.props;
-const projects = [
-  {
-    title: "pic",
-    image: "/landing/proyect5.jpg",
-    to: "/",
-  },
-  {
-    title: "pic",
-    image: "/landing/proyect3.jpg",
-    to: "/",
-  },
-  {
-    title: "pic",
-    image: "/landing/proyect4.jpg",
-    to: "/",
-  },
-  {
-    title: "pic",
-    image: "/landing/proyect1.jpg",
-    to: "/",
-  },
-];
+const { lang, t, projects } = Astro.props;
 ---
 
 <section class="mx-auto max-w-7xl px-6 py-16">
@@ -53,27 +34,33 @@ const projects = [
   </div>
   <ul class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
     {
-      projects.map(({ title, image, to }, index) => (
-        <li
-          class:list={[
-            "overflow-hidden rounded-2xl transition-transform duration-300 ease-in-out hover:scale-105",
-            index === 2 && "lg:col-span-1 lg:row-span-2",
-            index === 3 && "lg:col-span-2",
-            index === 4 && "lg:col-span-3",
-          ]}
-        >
-          <a href={getRelativeLocaleUrl(lang, to)} aria-label={title}>
-            <Image
-              src={image}
-              alt={title}
-              width={6000}
-              height={4000}
-              loading="lazy"
-              class="size-full object-cover"
-            />
-          </a>
-        </li>
-      ))
+      projects.map(({ id, data }, index) => {
+        const { title, images } = data;
+        return (
+          <li
+            class:list={[
+              "overflow-hidden rounded-2xl transition-transform duration-300 ease-in-out hover:scale-105",
+              index === 2 && "lg:col-span-1 lg:row-span-2",
+              index === 3 && "lg:col-span-2",
+              index === 4 && "lg:col-span-3",
+            ]}
+          >
+            <a
+              href={getRelativeLocaleUrl(lang, `gallery/${id}`)}
+              aria-label={title[lang]}
+            >
+              <Image
+                src={images[0].src}
+                alt={images[0].alt[lang]}
+                width={6000}
+                height={4941}
+                loading="lazy"
+                class="size-full object-cover"
+              />
+            </a>
+          </li>
+        );
+      })
     }
   </ul>
 </section>

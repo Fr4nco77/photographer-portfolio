@@ -8,39 +8,29 @@ import Link from "@components/collection/Link.astro";
 import type { languages } from "@i18n/ui";
 import Arrow from "@assets/icons/Arrow.astro";
 import { useTranslations } from "@i18n/utils";
+import { getCollection } from "astro:content";
 
-export const getStaticPaths = (() => {
-  return [
-    {
-      params: { collection: "title1" },
-    },
-  ];
+export const getStaticPaths = (async () => {
+  const collections = await getCollection("collection");
+
+  return collections.map((collection) => {
+    return { params: { collection: collection.id }, props: collection.data };
+  });
 }) satisfies GetStaticPaths;
 
-const images = [
-  "/landing/main1.jpg",
-  "/landing/main2.jpg",
-  "/landing/main3.jpg",
-  "/landing/proyect1.jpg",
-  "/landing/proyect3.jpg",
-  "/landing/proyect4.jpg",
-];
-
 const currentLang = Astro.currentLocale as keyof typeof languages;
+const { title, category, description, images, prevProject, nextProject } =
+  Astro.props;
 const t = useTranslations(currentLang);
-const title = "Collection1";
-const category = "Lorem ipsum dolor sit.";
-const description =
-  "Deserunt ab tempore animi assumenda, cupiditate deleniti est mollitia eaque consequatur velit corporis ea laudantium temporibus, officiis neque laborum cum distinctio! Incidunt.";
 ---
 
-<Layout>
+<Layout title={title[currentLang]} description={description[currentLang]}>
   <header class="mx-auto max-w-7xl px-6 pt-24 pb-8 text-center sm:text-start">
     <h1 class="font-title text-4xl tracking-tighter md:text-7xl">
-      {title}
+      {title[currentLang]}
     </h1>
     <p class="text-xl font-medium md:text-2xl">
-      {category}
+      {category[currentLang]}
     </p>
   </header>
   <Separator />
@@ -50,8 +40,8 @@ const description =
         <div class="lg:col-span-4">
           <Image
             id="mainImage"
-            src="/landing/main1.jpg"
-            alt=""
+            src={images[0].src}
+            alt={images[0].alt[currentLang]}
             width={6016}
             height={4016}
             loading="eager"
@@ -80,15 +70,15 @@ const description =
             class="no-scrollbar flex w-full items-center gap-4 overflow-x-auto scroll-smooth lg:max-h-[600px] lg:flex-col lg:overflow-y-auto"
           >
             {
-              images.map((image, index) => (
+              images.map(({ src, alt }, index) => (
                 <Image
-                  src={image}
-                  alt=""
+                  src={src}
+                  alt={alt[currentLang]}
                   width={144}
                   height={144}
                   loading={index <= 2 ? "eager" : "lazy"}
                   class="mini-image aspect-auto w-36 cursor-pointer rounded-sm grayscale-75 transition-all duration-300 ease-in-out hover:scale-105 hover:grayscale-0 lg:w-full"
-                  data-image={image}
+                  data-image={src}
                 />
               ))
             }
@@ -108,17 +98,17 @@ const description =
           </button>
         </div>
       </div>
-      <p class="text-lg md:text-xl">{description}</p>
+      <p class="text-lg md:text-xl">{description[currentLang]}</p>
     </div>
   </main>
   <div class="mx-auto flex max-w-xl items-center justify-between px-6 pb-16">
-    <Link lang={currentLang} to="">
+    <Link lang={currentLang} to={prevProject}>
       <Arrow
         styles="rotate-180 size-5 group-hover:-translate-x-1 transition-transform duration-300"
       />
       {t("collection.prev")}
     </Link>
-    <Link lang={currentLang} to="">
+    <Link lang={currentLang} to={nextProject}>
       {t("collection.next")}
       <Arrow
         styles="size-5 group-hover:translate-x-1 transition-transform duration-300"

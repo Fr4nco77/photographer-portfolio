@@ -2,6 +2,7 @@
 import Layout from "@layouts/Layout.astro";
 import { useTranslations } from "@i18n/utils";
 import { languages } from "@i18n/ui";
+import { getCollection } from "astro:content";
 import Hero from "@components/landing/Hero.astro";
 import About from "@components/landing/About.astro";
 import MainProjects from "@components/landing/MainProjects.astro";
@@ -10,6 +11,11 @@ import Separator from "@components/Separator.astro";
 
 const currentLang = Astro.currentLocale as keyof typeof languages;
 const t = useTranslations(currentLang);
+
+const collections = await getCollection("collection");
+
+const featuredWorks = collections.slice(0, 3);
+const othersWorks = collections.slice(3, 7);
 ---
 
 <Layout description={t("description.index")}>
@@ -17,8 +23,8 @@ const t = useTranslations(currentLang);
     <Hero lang={currentLang} t={t} />
     <Separator />
     <About t={t} />
-    <MainProjects lang={currentLang} t={t} />
-    <Projects lang={currentLang} t={t} />
+    <MainProjects lang={currentLang} t={t} featuredWorks={featuredWorks} />
+    <Projects lang={currentLang} t={t} projects={othersWorks} />
     <Separator />
   </main>
 </Layout>
