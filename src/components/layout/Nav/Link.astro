@@ -4,14 +4,20 @@ import { getRelativeLocaleUrl } from "astro:i18n";
 interface Props {
   lang: string;
   to: string;
+  mobil?: boolean;
 }
 
-const { lang, to } = Astro.props;
+const { lang, to, mobil } = Astro.props;
 ---
 
 <a
   href={getRelativeLocaleUrl(lang, to)}
-  class="border-secondary hover:bg-secondary hover:text-primary rounded-full border px-4 py-2 transition-colors duration-300"
+  class:list={[
+    "px-4 py-2 transition-all duration-300",
+    mobil
+      ? "font-title text-lg underline underline-offset-8 hover:underline-offset-4"
+      : "border-secondary hover:bg-secondary hover:text-primary rounded-full border",
+  ]}
 >
   <slot />
 </a>

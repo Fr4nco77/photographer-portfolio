@@ -23,7 +23,7 @@ const { lang, translate } = Astro.props;
 
 <div
   id="mobilMenu"
-  class="bg-primary border-secondary invisible fixed inset-0 z-11 h-[30vh] border-b opacity-0 transition-all duration-300 ease-in-out sm:hidden"
+  class="bg-primary border-secondary invisible fixed inset-0 z-11 h-[20vh] border-b opacity-0 transition-all duration-300 ease-in-out sm:hidden"
 >
   <div class="relative flex size-full flex-col items-center justify-center">
     <div class="absolute top-4 left-6">
@@ -39,15 +39,15 @@ const { lang, translate } = Astro.props;
         <span class="bg-secondary h-0.5 w-5 -translate-y-0.5 -rotate-45"></span>
       </button>
     </div>
-    <ul class="flex flex-col items-center justify-center gap-8">
+    <ul class="flex items-center justify-evenly">
       <li>
-        <Link to="/about" lang={lang}>About</Link>
+        <Link to="/about" lang={lang} mobil>About</Link>
       </li>
       <li>
-        <Link to="/gallery" lang={lang}>Gallery</Link>
+        <Link to="/gallery" lang={lang} mobil>Gallery</Link>
       </li>
       <li>
-        <Link to="/contact" lang={lang}>Contact</Link>
+        <Link to="/contact" lang={lang} mobil>Contact</Link>
       </li>
     </ul>
   </div>
