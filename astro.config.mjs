@@ -5,18 +5,24 @@ import tailwindcss from '@tailwindcss/vite';
 
 import sitemap from '@astrojs/sitemap';
 
+import vercel from "@astrojs/vercel";
+
 // https://astro.build/config
 export default defineConfig({
   site: "http://localhost:4321",
   integrations: [sitemap()],
+
   vite: {
     plugins: [tailwindcss()]
   },
+
   i18n: {
     defaultLocale: "en",
     locales: ["en", "es"],
     routing: {
       prefixDefaultLocale: true
     }
-  }
+  },
+
+  adapter: vercel()
 });
