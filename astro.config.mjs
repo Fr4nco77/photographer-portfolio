@@ -9,7 +9,7 @@ import vercel from "@astrojs/vercel";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "http://localhost:4321",
+  site: "https://neophotographer-portfolio.vercel.app",
   integrations: [sitemap()],
 
   vite: {
