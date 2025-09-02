@@ -28,12 +28,15 @@ const collections = await getCollection("collection");
       {
         collections.map(({ id, data }, index) => {
           const { title, category, images } = data;
+          const seededIndex = Math.floor(Math.random() * images.length);
+          const randomImage = images[seededIndex];
+
           return (
             <GalleryCard
               title={title[currentLang]}
               category={category[currentLang]}
-              image={images[0].src}
-              alt={images[0].alt[currentLang]}
+              image={randomImage.src}
+              alt={randomImage.alt[currentLang]}
               to={id}
               lazy={index > 9}
               lang={currentLang}

@@ -29,14 +29,22 @@ const t = useTranslations(currentLang);
     <h1 class="font-title text-4xl tracking-tighter md:text-7xl">
       {title[currentLang]}
     </h1>
-    <p class="text-xl font-medium md:text-2xl">
-      {category[currentLang]}
-    </p>
+    <div class="flex flex-col items-center gap-1 md:flex-row md:gap-4">
+      <span class="text-xl font-medium md:text-2xl">
+        {category[currentLang]}
+      </span>
+      <Link lang={currentLang} to={nextProject}>
+        {t("collection.next")}
+        <Arrow
+          styles="size-5 group-hover:translate-x-1 transition-transform duration-300"
+        />
+      </Link>
+    </div>
   </header>
   <Separator />
   <main class="mx-auto max-w-7xl px-6 py-16">
     <div class="space-y-8">
-      <div class="grid gap-8 lg:grid-cols-5">
+      <div class="grid gap-8 lg:auto-rows-[600px] lg:grid-cols-5">
         <div class="lg:col-span-4">
           <Image
             id="mainImage"
@@ -45,17 +53,17 @@ const t = useTranslations(currentLang);
             width={6016}
             height={4016}
             loading="eager"
-            class="aspect-auto size-full rounded-sm object-cover"
+            class="h-full rounded-sm object-contain"
           />
         </div>
         <div
-          class="relative flex size-full items-center justify-center gap-3 lg:flex-col"
+          class="relative flex w-full items-center justify-center gap-3 lg:flex-col"
         >
           <!-- Prev -->
           <button
             id="prevBtn"
             aria-label="Prev Image"
-            class="bg-secondary/80 text-primary hover:bg-secondary flex items-center justify-center rounded-full p-2"
+            class="bg-secondary text-primary absolute top-auto left-0 z-2 flex animate-pulse cursor-pointer items-center justify-center rounded-full p-2 hover:animate-none lg:top-0 lg:left-auto"
           >
             <span class="block lg:hidden">
               <Chevron styles="size-5 rotate-180" />
@@ -67,7 +75,7 @@ const t = useTranslations(currentLang);
           <!-- Slider -->
           <div
             id="slider"
-            class="no-scrollbar flex w-full items-center gap-4 overflow-x-auto scroll-smooth lg:max-h-[600px] lg:flex-col lg:overflow-y-auto"
+            class="no-scrollbar flex w-full items-center gap-4 overflow-x-auto scroll-smooth lg:flex-col lg:overflow-y-auto"
           >
             {
               images.map(({ src, alt }, index) => (
@@ -87,7 +95,7 @@ const t = useTranslations(currentLang);
           <button
             id="nextBtn"
             aria-label="Next Image"
-            class="bg-secondary/80 text-primary hover:bg-secondary flex items-center justify-center rounded-full p-2"
+            class="bg-secondary text-primary absolute right-0 bottom-auto z-2 flex animate-pulse cursor-pointer items-center justify-center rounded-full p-2 hover:animate-none lg:right-auto lg:bottom-0"
           >
             <span class="block lg:hidden">
               <Chevron styles="size-5" />
@@ -98,23 +106,13 @@ const t = useTranslations(currentLang);
           </button>
         </div>
       </div>
-      <p class="text-lg md:text-xl">{description[currentLang]}</p>
+      <div
+        class="bg-secondary bg-secondary text-primary mx-auto max-w-5xl rounded-2xl px-6 py-4 text-base italic md:text-lg"
+      >
+        <p>{description[currentLang]}</p>
+      </div>
     </div>
   </main>
-  <div class="mx-auto flex max-w-xl items-center justify-between px-6 pb-16">
-    <Link lang={currentLang} to={prevProject}>
-      <Arrow
-        styles="rotate-180 size-5 group-hover:-translate-x-1 transition-transform duration-300"
-      />
-      {t("collection.prev")}
-    </Link>
-    <Link lang={currentLang} to={nextProject}>
-      {t("collection.next")}
-      <Arrow
-        styles="size-5 group-hover:translate-x-1 transition-transform duration-300"
-      />
-    </Link>
-  </div>
   <Separator />
 </Layout>
 
