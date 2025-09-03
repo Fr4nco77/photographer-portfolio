@@ -11,12 +11,14 @@ const { t } = Astro.props;
 
 <section class="mx-auto max-w-7xl px-6 py-16">
   <div class="grid gap-16 lg:grid-cols-2">
-    <div class="hidden overflow-hidden rounded-2xl max-h-[600px] lg:block">
+    <div class="hidden max-h-[600px] overflow-hidden rounded-2xl lg:block">
       <Image
-        width={2826}
-        height={4244}
         src="/amelia/6.webp"
         alt="Amelia Allen"
+        width={456}
+        height={600}
+        widths={[456, 768, 1024, 1280]}
+        sizes="((max-width: 1024px) 456px, 584px"
         loading="lazy"
         class="size-full object-cover object-top"
       />

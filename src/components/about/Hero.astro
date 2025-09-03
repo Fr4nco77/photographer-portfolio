@@ -14,10 +14,12 @@ const { t } = Astro.props;
 >
   <div class="absolute inset-0 overflow-hidden">
     <Image
-      width={6720}
-      height={4480}
       src="/amelia/5.webp"
       alt="Amelia Allen"
+      width={320}
+      height={699}
+      widths={[320, 768, 1024, 1280]}
+      sizes="(max-width: 360px) 320px, (max-width: 768px) 768px, (max-width: 1024px) 1024px, 1280px"
       loading="eager"
       class="size-full object-cover"
     />

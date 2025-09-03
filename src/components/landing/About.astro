@@ -15,8 +15,10 @@ const { t } = Astro.props;
       <Image
         src="/amelia/4.webp"
         alt="Amelia Allen"
-        width={1599}
-        height={2398}
+        width={344}
+        height={516}
+        widths={[344, 304, 390]}
+        sizes="(max-width: 720px) 344px, (max-width: 1024px) 304px, 390px"
         loading="lazy"
         class="size-full object-cover"
       />
@@ -40,8 +42,10 @@ const { t } = Astro.props;
         <Image
           src="/amelia/3.webp"
           alt="Amelia Allen"
-          width={2400}
-          height={1600}
+          width={272}
+          height={182}
+          widths={[272, 304, 390]}
+          sizes="(max-width: 360px) 272px, (max-width: 1024px) 304px, 390px"
           loading="lazy"
           class="size-full object-cover"
         />
@@ -50,8 +54,10 @@ const { t } = Astro.props;
         <Image
           src="/amelia/2.webp"
           alt="Amelia Allen"
-          width={1731}
-          height={1155}
+          width={304}
+          height={202}
+          widths={[304, 390]}
+          sizes="((max-width: 1024px) 304px, 390px"
           loading="lazy"
           class="size-full object-cover"
         />

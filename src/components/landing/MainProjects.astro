@@ -33,10 +33,12 @@ const { lang, t, featuredWorks } = Astro.props;
           >
             <div class="relative h-20 md:h-36">
               <Image
-                width={4899}
-                height={3265}
                 src={images[0].src}
                 alt={images[0].alt[lang]}
+                height={144}
+                width={327}
+                widths={[327, 720, 976, 1232]}
+                sizes="(max-width: 360px) 327px, (max-width: 720px) 720px, (max-width: 1024px) 976px, 1232px"
                 loading="lazy"
                 class="size-full object-cover transition-transform duration-500 group-hover:scale-105"
               />

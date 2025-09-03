@@ -25,8 +25,10 @@ const { title, category, image, alt, to, lazy, lang } = Astro.props;
     <Image
       src={image}
       alt={alt}
-      width={400}
-      height={500}
+      width={144}
+      height={144}
+      widths={[144, 768, 1024, 1280]}
+      sizes="(max-width: 360px) 144px, (max-width: 768px) 180px, (max-width: 1024px) 192px, 243px"
       loading={lazy ? "lazy" : "eager"}
       class="size-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
     />

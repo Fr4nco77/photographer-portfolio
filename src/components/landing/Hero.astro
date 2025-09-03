@@ -52,8 +52,10 @@ const { lang, t } = Astro.props;
       <Image
         src="/amelia/1.webp"
         alt="Amelia allen"
-        width={1670}
-        height={1115}
+        width={272}
+        height={182}
+        widths={[272, 720, 976, 1232]}
+        sizes="(max-width: 360px) 272px, (max-width: 720px) 344px, (max-width: 1024px) 640px, 810px"
         loading="eager"
         class="size-full object-cover"
       />
