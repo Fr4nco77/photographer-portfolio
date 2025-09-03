@@ -3,7 +3,7 @@
 A modern and elegant **photographer portfolio website** built with **Astro** and **Tailwind CSS**.  
 This project showcases professional photography collections, an about page, and a contact form, all within a clean and responsive design.  
 
-![Website Preview](/preview.webp)
+![Website Preview](public/preview.webp)
 
 ---
 
