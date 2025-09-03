@@ -50,8 +50,10 @@ const t = useTranslations(currentLang);
             id="mainImage"
             src={images[0].src}
             alt={images[0].alt[currentLang]}
-            width={6016}
-            height={4016}
+            width={272}
+            height={228}
+            widths={[272, 720, 774, 980]}
+            sizes="(max-width: 360px) 272px, (max-width: 768px) 720px, (max-width: 1024px) 774px, 980px"
             loading="eager"
             class="h-full rounded-sm object-contain"
           />
@@ -83,7 +85,9 @@ const t = useTranslations(currentLang);
                   src={src}
                   alt={alt[currentLang]}
                   width={144}
-                  height={144}
+                  height={120}
+                  widths={[144, 170, 220]}
+                  sizes="(max-width: 768px) 144px, (max-width: 1024px) 170px, 220px"
                   loading={index < 4 ? "eager" : "lazy"}
                   class="mini-image aspect-auto w-36 cursor-pointer rounded-sm grayscale-75 transition-all duration-300 ease-in-out hover:scale-105 hover:grayscale-0 lg:w-full"
                   data-image={src}
@@ -107,7 +111,7 @@ const t = useTranslations(currentLang);
         </div>
       </div>
       <div
-        class="bg-secondary bg-secondary text-primary mx-auto max-w-5xl rounded-2xl px-6 py-4 text-base italic md:text-lg"
+        class="bg-secondary text-primary mx-auto max-w-5xl rounded-2xl px-6 py-4 text-base italic md:text-lg"
       >
         <p>{description[currentLang]}</p>
       </div>
