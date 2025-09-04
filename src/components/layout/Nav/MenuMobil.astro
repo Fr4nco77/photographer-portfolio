@@ -5,10 +5,10 @@ import Link from "./Link.astro";
 
 interface Props {
   lang: string;
-  translate?: Translate;
+  t: Translate;
 }
 
-const { lang, translate } = Astro.props;
+const { lang, t } = Astro.props;
 ---
 
 <button
@@ -32,7 +32,7 @@ const { lang, translate } = Astro.props;
     <div class="absolute top-4 right-6">
       <button
         id="close-menu"
-        class="flex flex-col items-center h-8 justify-center"
+        class="flex h-8 flex-col items-center justify-center"
         aria-label="Close menu"
       >
         <span class="bg-secondary h-0.5 w-5 rotate-45"></span>
@@ -41,13 +41,13 @@ const { lang, translate } = Astro.props;
     </div>
     <ul class="flex items-center justify-evenly">
       <li>
-        <Link to="/about" lang={lang} mobil>About</Link>
+        <Link to="/about" lang={lang} mobil>{t("nav.about")}</Link>
       </li>
       <li>
-        <Link to="/gallery" lang={lang} mobil>Gallery</Link>
+        <Link to="/gallery" lang={lang} mobil>{t("nav.gallery")}</Link>
       </li>
       <li>
-        <Link to="/contact" lang={lang} mobil>Contact</Link>
+        <Link to="/contact" lang={lang} mobil>{t("nav.contact")}</Link>
       </li>
     </ul>
   </div>
